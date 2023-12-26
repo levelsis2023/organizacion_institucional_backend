@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserResource;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
@@ -53,8 +52,20 @@ class AuthController extends Controller
 
     public function refresh()
     {
-        return $this->respondWithToken(JWTAuth::refresh());
+        $token = JWTAuth::getToken();
+    
+        if (!$token) {
+            return response()->json(['error' => 'Token no encontrado'], 401);
+        }
+    
+        try {
+            $newToken = JWTAuth::refresh($token);
+            return $this->respondWithToken($newToken);
+        } catch (JWTException $e) {
+            return response()->json(['error' => 'Error al intentar refrescar el token'], 401);
+        }
     }
+    
 
     protected function respondWithToken($token)
     {

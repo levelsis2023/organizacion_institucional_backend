@@ -11,7 +11,7 @@ class InstitutionController extends Controller
 
     public function index()
     {
-        $institutions = Institution::all();
+        $institutions = Institution::whereNull('parent_id')->get();
         return response()->json(['institutions' => $institutions]);
     }
 
