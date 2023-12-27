@@ -9,9 +9,13 @@ use Illuminate\Support\Str;
 
 class AreaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $areas = Area::paginate(10);
+
+        $areas = Area::when($request->query('institution_id'), function ($query) use ($request) {
+            $query->where('institution_id', $request->query('institution_id'));
+        })
+        ->paginate(10);
         return response()->json(['area' => $areas]);
     }
 

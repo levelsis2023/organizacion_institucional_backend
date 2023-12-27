@@ -12,7 +12,7 @@ class InstitutionController extends Controller
 
     public function index()
     {
-        $institutions = Institution::all();
+        $institutions = Institution::whereNull('parent_id')->paginate(10);
         return response()->json(['institutions' => $institutions]);
     }
 
