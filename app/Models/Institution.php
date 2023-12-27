@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Institution extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'parent_id'];
+    protected $fillable = ['uuid', 'code', 'name', 'short_name', 'phone', 'email', 'born_code', 'parent_id'];
 
     public function areas()
     {

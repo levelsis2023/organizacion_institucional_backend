@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('institutions', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid');
+            $table->string('code');
             $table->string('name');
+            $table->string('short_name');
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->string('born_code')->nullable();
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->foreign('parent_id')->references('id')->on('institutions');
             $table->timestamps();

@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\AreaController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\InstitutionController;
+use App\Http\Controllers\Api\PositionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +21,11 @@ Route::get('institutions/{id}/all-subinstitutions', [InstitutionController::clas
 Route::apiResource('institutions', InstitutionController::class)->parameters([
     'institutions' => 'id'
 ])->names('api.institutions');
+
+Route::apiResource('areas', AreaController::class)->parameters([
+    'areas' => 'id'
+])->names('api.areas');
+
+Route::apiResource('positions', PositionController::class)->parameters([
+    'positions' => 'id'
+])->names('api.positions');

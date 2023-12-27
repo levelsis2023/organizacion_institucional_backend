@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Institution;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class InstitutionController extends Controller
 {
 
     public function index()
     {
-        $institutions = Institution::all();
+        $institutions = Institution::paginate(10);
         return response()->json(['institutions' => $institutions]);
     }
 
@@ -24,22 +25,49 @@ class InstitutionController extends Controller
     public function store(Request $request)
     {
         $data =  $this->validate($request, [
-            'name' => 'required|string|max:255',
+            'code' => 'required|unique:institutions',
+            'name' => 'required|string',
+            'short_name' => 'required|string',
+            'phone' => 'required|string',
+            'email' => 'required|email',
+            'born_code' => 'required|string',
             'parent_id' => 'nullable|exists:institutions,id',
         ]);
-        $institution = Institution::create($data);
+        $institution = Institution::create([
+            'uuid' => Str::uuid()->toString(),
+            'code' => $request->code,
+            'name' => $request->name,
+            'short_name' => $request->short_name,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'born_code' => $request->born_code,
+            'parent_id' => $request->parent_id,
+        ]);
         return response()->json(['institution' => $institution]);
     }
 
     public function update(Request $request, $id)
     {
         $data =  $this->validate($request, [
-            'name' => 'required|string|max:255',
+            'code' => 'required|unique:institutions,code,' . $id,
+            'name' => 'required|string',
+            'short_name' => 'required|string',
+            'phone' => 'required|string',
+            'email' => 'required|email',
+            'born_code' => 'required|string',
             'parent_id' => 'nullable|exists:institutions,id',
         ]);
 
         $institution = Institution::findOrFail($id);
-        $institution->update($data);
+        $institution->update([
+            'code' => $request->code,
+            'name' => $request->name,
+            'short_name' => $request->short_name,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'born_code' => $request->born_code,
+            'parent_id' => $request->parent_id,
+        ]);
         return response()->json(['institution' => $institution]);
     }
 
