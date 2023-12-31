@@ -15,7 +15,7 @@ Route::group(['middleware' => 'api'], function ($router) {
 });
 
 // Route::get('institutions/{id}/sub-institutions', [InstitutionController::class, 'getSubInstitutions']);
-Route::get('institutions/{id}/all-subinstitutions', [InstitutionController::class, 'getAllSubInstitutions']);
+/*Route::get('institutions/{id}/all-subinstitutions', [InstitutionController::class, 'getAllSubInstitutions']);
 
 
 Route::apiResource('institutions', InstitutionController::class)->parameters([
@@ -28,4 +28,4 @@ Route::apiResource('areas', AreaController::class)->parameters([
 
 Route::apiResource('positions', PositionController::class)->parameters([
     'positions' => 'id'
-])->names('api.positions');
+])->names('api.positions');*/
