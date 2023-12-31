@@ -29,3 +29,5 @@ Route::apiResource('areas', AreaController::class)->parameters([
 Route::apiResource('positions', PositionController::class)->parameters([
     'positions' => 'id'
 ])->names('api.positions');*/
+
+Route::get('intitutions', [InstitutionsController::class, 'getAllInstitutions']);
