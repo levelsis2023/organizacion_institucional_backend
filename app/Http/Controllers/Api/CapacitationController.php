@@ -32,6 +32,35 @@ class CapacitationController extends Controller
     public function store(Request $request)
     {
         //
+        $data =  $this->validate($request, [
+            'BudgetCode' => 'string|max:20',
+            'PositionId' => 'binary(16)',
+            'Years' => 'integer',
+            'Months' => 'integer',
+            'MaxSalary' => 'numeric|digits:10',
+            'CurrentSalary' => 'numeric|digits:10',
+            'Diference' => 'numeric|digits:10',
+            'Indicators' => 'numeric|digits:10',
+            'Observation' => 'text',
+        ]);
+        $budget = Capacitation::create([
+            'BudgetCode' => $request->BudgetCode,
+            'PositionId' => $request->PositionId,
+            'Years' => $request->Years,
+            'Months' => $request->Months,
+            'MaxSalary' => $request->MaxSalary,
+            'CurrentSalary' => $request->CurrentSalary,
+            'Diference' => $request->Diference,
+            'Indicators' => $request->Indicators,
+            'Observation' => $request->Observation,//'binary(16)|exists:Applicants,ApplicantsId',
+            /*'uuid' => Str::uuid()->toString(),
+            'Item' => $request->Item,
+            'DegreesStudy' => $request->DegreesStudy,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'area_id' => $request->area_id,*/
+        ]);
+        return response()->json(['budget' => $budget]);
     }
 
     /**
