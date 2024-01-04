@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AreaController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\InstitutionController;
+use App\Http\Controllers\Api\Levels\InstitutionsController;
 use App\Http\Controllers\Api\PositionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,4 +31,4 @@ Route::apiResource('positions', PositionController::class)->parameters([
     'positions' => 'id'
 ])->names('api.positions');*/
 
-Route::get('intitutions', [InstitutionsController::class, 'getAllInstitutions']);
+Route::get('institutions', [InstitutionsController::class, 'index']);
